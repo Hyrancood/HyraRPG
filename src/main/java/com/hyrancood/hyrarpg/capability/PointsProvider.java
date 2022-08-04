@@ -1,18 +1,16 @@
 package com.hyrancood.hyrarpg.capability;
 
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.Capability;
-
-import net.minecraft.util.Direction;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.LazyOptional;
 
-public class PointsProvider implements ICapabilitySerializable<INBT> {
+public class    PointsProvider implements ICapabilitySerializable<INBT> {
 	@CapabilityInject(IPoints.class)
     public static Capability<IPoints> capability = null;
     private LazyOptional<IPoints> instance = LazyOptional.of(capability::getDefaultInstance);

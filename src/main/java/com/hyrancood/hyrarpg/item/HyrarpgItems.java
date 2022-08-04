@@ -10,7 +10,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class HyrarpgItems {
+public class HyraRPGItems {
 	
 	public static final DeferredRegister<Item> ITEMS = 
 			DeferredRegister.create(ForgeRegistries.ITEMS, HyraRPG.ID);
