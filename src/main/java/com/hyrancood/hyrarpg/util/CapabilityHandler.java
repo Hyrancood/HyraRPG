@@ -1,10 +1,13 @@
 package com.hyrancood.hyrarpg.util;
 
 import com.hyrancood.hyrarpg.HyraRPG;
-import com.hyrancood.hyrarpg.capability.IPoints;
-import com.hyrancood.hyrarpg.capability.Points;
-import com.hyrancood.hyrarpg.capability.PointsProvider;
 
+import com.hyrancood.hyrarpg.capability.character.CharacterProvider;
+import com.hyrancood.hyrarpg.capability.mana.ManaProvider;
+import com.hyrancood.hyrarpg.capability.points.IPoints;
+import com.hyrancood.hyrarpg.capability.points.Points;
+import com.hyrancood.hyrarpg.capability.points.PointsProvider;
+import com.hyrancood.hyrarpg.capability.skills.SkillsProvider;
 import com.hyrancood.hyrarpg.packets.PointsServerPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,11 +21,17 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = HyraRPG.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CapabilityHandler {
     public static final ResourceLocation POINTS = new ResourceLocation(HyraRPG.ID, "points");
+	public static final ResourceLocation CHARACTER = new ResourceLocation(HyraRPG.ID, "character");
+	public static final ResourceLocation MANA = new ResourceLocation(HyraRPG.ID, "mana");
+	public static final ResourceLocation SKILLS = new ResourceLocation(HyraRPG.ID, "skills");
 
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
     	if(event.getObject() instanceof PlayerEntity) {
         	event.addCapability(POINTS, new PointsProvider());
+			event.addCapability(CHARACTER, new CharacterProvider());
+			event.addCapability(MANA, new ManaProvider());
+			event.addCapability(SKILLS, new SkillsProvider());
     	}
 	}
     

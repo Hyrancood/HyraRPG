@@ -1,9 +1,9 @@
 package com.hyrancood.hyrarpg.events;
 
 import com.hyrancood.hyrarpg.HyraRPG;
-import com.hyrancood.hyrarpg.capability.IPoints;
-import com.hyrancood.hyrarpg.capability.Points;
-import com.hyrancood.hyrarpg.capability.PointsProvider;
+import com.hyrancood.hyrarpg.capability.points.IPoints;
+import com.hyrancood.hyrarpg.capability.points.Points;
+import com.hyrancood.hyrarpg.capability.points.PointsProvider;
 
 import com.hyrancood.hyrarpg.packets.PointsClientPacket;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,9 +18,8 @@ public class TestEvent {
 	public static void RMCevent(PlayerInteractEvent.RightClickEmpty event) {
 		PlayerEntity player = event.getPlayer();
 		IPoints points = player.getCapability(PointsProvider.capability, null).orElseGet(Points::new);
+	    int p = points.getPoints(3);
+	    points.addPoint(3);
 		new PointsClientPacket(points.getPointsArray()).sendToServer();
-	    int p = points.getPoints(0);
-	    System.out.println(p);
-	    points.addPoint(0);
 	}
 }

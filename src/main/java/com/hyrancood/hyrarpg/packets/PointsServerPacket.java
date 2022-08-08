@@ -1,5 +1,7 @@
 package com.hyrancood.hyrarpg.packets;
 
+import com.hyrancood.hyrarpg.capability.points.*;
+import com.hyrancood.hyrarpg.capability.points.PointsProvider;
 import hohserg.elegant.networking.api.ElegantPacket;
 import hohserg.elegant.networking.api.ServerToClientPacket;
 import net.minecraft.client.Minecraft;
@@ -14,6 +16,7 @@ public class PointsServerPacket implements ServerToClientPacket {
 
     @Override
     public void onReceive(Minecraft mc) {
-        System.out.println(points[0]);
+        IPoints p = mc.player.getCapability(PointsProvider.capability).orElseGet(Points::new);
+        p.setPointsArray(this.points);
     }
 }
