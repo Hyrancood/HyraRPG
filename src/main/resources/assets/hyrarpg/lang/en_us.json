@@ -1,3 +1,31 @@
 {
-	"item.hyrarpg.iron_stick": "Iron Stick"
+	"item.hyrarpg.iron_stick": "Iron Stick",
+	"item.hyrarpg.rock": "Rock",
+
+	"item.hyrarpg.wooden_wand": "Wooden Wand",
+	"item.hyrarpg.golden_wand": "Golden Wand",
+	"item.hyrarpg.diamond_wand": "Diamond Wand",
+	"item.hyrarpg.emerald_wand": "Emerald Wand",
+
+	"character.hyrarpg.fighter": "Fighter",
+	"character.hyrarpg.swordsman": "Swordsman",
+	"character.hyrarpg.ranger": "Ranger",
+	"character.hyrarpg.wizard": "Wizard",
+	"character.hyrarpg.thief": "Thief",
+
+	"character.hyrarpg.knight": "Knight",
+	"character.hyrarpg.adventurist": "Adventurist",
+	"character.hyrarpg.warrior": "Warrior",
+
+	"character.hyrarpg.hunter": "Hunter",
+	"character.hyrarpg.shooter": "Shooter",
+	"character.hyrarpg.thrower": "Thrower",
+
+	"character.hyrarpg.magical_swordsman": "Magical Swordsman",
+	"character.hyrarpg.elemental_wizard": "Elemental Wizard",
+	"character.hyrarpg.healer": "Healer",
+
+	"character.hyrarpg.assassin": "Assassin",
+	"character.hyrarpg.wrestler": "Wrestler",
+	"character.hyrarpg.guerrilla": "Guerrilla"
 }

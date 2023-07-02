@@ -12,8 +12,9 @@ import com.hyrancood.hyrarpg.capability.points.PointsStorage;
 import com.hyrancood.hyrarpg.capability.skills.ISkills;
 import com.hyrancood.hyrarpg.capability.skills.Skills;
 import com.hyrancood.hyrarpg.capability.skills.SkillsStorage;
-import com.hyrancood.hyrarpg.client.overlay.ManaOverlay;
-import com.hyrancood.hyrarpg.events.PassiveManaRegeneration;
+import com.hyrancood.hyrarpg.enchantments.HyraRPGEnchantments;
+import com.hyrancood.hyrarpg.util.OverlayHandler;
+import com.hyrancood.hyrarpg.util.events.PassiveManaRegeneration;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -27,7 +28,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.hyrancood.hyrarpg.events.TestEvent;
 import com.hyrancood.hyrarpg.item.HyraRPGItems;
 import com.hyrancood.hyrarpg.util.CapabilityHandler;
 
@@ -41,6 +41,7 @@ public class HyraRPG {
 		
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		HyraRPGItems.register(eventBus);
+		HyraRPGEnchantments.register(eventBus);
 		eventBus.addListener(this::setup);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -51,9 +52,8 @@ public class HyraRPG {
 		CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), Mana::new);
 		CapabilityManager.INSTANCE.register(ISkills.class, new SkillsStorage(), Skills::new);
 
-		MinecraftForge.EVENT_BUS.register(new TestEvent());
 		MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
-		MinecraftForge.EVENT_BUS.register(new ManaOverlay());
+		MinecraftForge.EVENT_BUS.register(new OverlayHandler());
 		MinecraftForge.EVENT_BUS.register(new PassiveManaRegeneration());
 	}
 

@@ -14,6 +14,7 @@ public interface IMana {
     public void setManaRegenSpeedArray(float[] array);
 
     public void addMana(float amount);
+    public void reduceMana(float amount);
     public void addMaxMana(int id, float amount);
     public void addManaRegenSpeed(int id, float amount);
 

@@ -6,7 +6,12 @@ public class Points implements IPoints {
 	public Points() {
 		this.points = new int[4];
 	}
+	//0 - swordsman
+	//1 - ranger
+	//2 - wizard
+	//3 - thief
 
+	@Override
 	public int getPoints(int id) {
 		return this.points[id];
 	}

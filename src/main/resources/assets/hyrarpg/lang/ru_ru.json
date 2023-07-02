@@ -1,0 +1,31 @@
+{
+  "item.hyrarpg.iron_stick": "Железный стержень",
+  "item.hyrarpg.rock": "Камень",
+
+  "item.hyrarpg.wooden_wand": "Древесный жезл",
+  "item.hyrarpg.golden_wand": "Золотой посох",
+  "item.hyrarpg.diamond_wand": "Алмазный посох",
+  "item.hyrarpg.emerald_wand": "Изумрудный посох",
+
+  "character.hyrarpg.fighter": "Боец",
+  "character.hyrarpg.swordsman": "Мечник",
+  "character.hyrarpg.ranger": "Егерь",
+  "character.hyrarpg.wizard": "Маг",
+  "character.hyrarpg.thief": "Вор",
+
+  "character.hyrarpg.knight": "Рыцарь",
+  "character.hyrarpg.adventurist": "Авантюрист",
+  "character.hyrarpg.warrior": "Воин",
+
+  "character.hyrarpg.hunter": "Охотник",
+  "character.hyrarpg.shooter": "Стрелок",
+  "character.hyrarpg.thrower": "Метатель",
+
+  "character.hyrarpg.magical_swordsman": "Магический Мечник",
+  "character.hyrarpg.elemental_wizard": "Маг стихий",
+  "character.hyrarpg.healer": "Целитель",
+
+  "character.hyrarpg.assassin": "Ассасин",
+  "character.hyrarpg.wrestler": "Борец",
+  "character.hyrarpg.guerrilla": "Партизан"
+}

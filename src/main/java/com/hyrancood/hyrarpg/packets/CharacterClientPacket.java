@@ -10,12 +10,14 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 public class CharacterClientPacket implements ClientToServerPacket {
     final String character;
     final int step;
+    final int level;
     final float xp;
     final int needXP;
 
-    public CharacterClientPacket(String character, int step, float xp, int needXP){
+    public CharacterClientPacket(String character, int step, int level, float xp, int needXP){
         this.character = character;
         this.step = step;
+        this.level = level;
         this.xp = xp;
         this.needXP = needXP;
     }
@@ -25,6 +27,7 @@ public class CharacterClientPacket implements ClientToServerPacket {
         ICharacter capability = player.getCapability(CharacterProvider.capability).orElseGet(Character::new);
         capability.setCharacter(this.character);
         capability.setStep(this.step);
+        capability.setLevel(this.level);
         capability.setXP(this.xp);
         capability.setNeedXP(this.needXP);
     }

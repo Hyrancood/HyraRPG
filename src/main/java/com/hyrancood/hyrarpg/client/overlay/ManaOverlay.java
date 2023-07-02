@@ -1,73 +1,66 @@
 package com.hyrancood.hyrarpg.client.overlay;
 
-import com.hyrancood.hyrarpg.capability.mana.IMana;
-import com.hyrancood.hyrarpg.capability.mana.Mana;
+import com.hyrancood.hyrarpg.capability.mana.*;
 import com.hyrancood.hyrarpg.capability.mana.ManaProvider;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class ManaOverlay {
-    private static final ResourceLocation EMPTYSTAR = new ResourceLocation("hyrarpg:textures/overlay/empty_manastar.png");
-    private static final ResourceLocation FIRST = new ResourceLocation("hyrarpg:textures/overlay/firstquarter_manastar.png");
-    private static final ResourceLocation SECOND = new ResourceLocation("hyrarpg:textures/overlay/secondquarter_manastar.png");
-    private static final ResourceLocation THIRD = new ResourceLocation("hyrarpg:textures/overlay/thirdquarter_manastar.png");
-    private static final ResourceLocation FOURTH = new ResourceLocation("hyrarpg:textures/overlay/fourthquarter_manastar.png");
+import java.text.DecimalFormat;
 
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void manaRender(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            System.out.println("draw");
-            int w = event.getWindow().getScreenWidth();
-            int h = event.getWindow().getScreenHeight();
-            PlayerEntity player = Minecraft.getInstance().player;
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
-            int offsetX = 10;
-            for (int i = 0; i < 10; i++) {
-                Minecraft.getInstance().getTextureManager().bind(EMPTYSTAR);
-                Minecraft.getInstance().gui.blit(event.getMatrixStack(), w / 2 + offsetX, h - 48, 0, 0, 8, 8, 8, 8);
-                offsetX = offsetX + 8;
+public class ManaOverlay extends AbstractGui {
+    protected static final ResourceLocation MANASTAR = new ResourceLocation("hyrarpg:textures/wigets.png");
+    protected float playerMana;
+    protected float maxMana;
+    protected int w;
+    protected int h;
+
+    public ManaOverlay(Minecraft mc, MatrixStack ms){
+        this.w = mc.getWindow().getGuiScaledWidth();
+        this.h = mc.getWindow().getGuiScaledHeight();
+
+        ClientPlayerEntity player = mc.player;
+        assert player != null;
+        IMana mana = player.getCapability(ManaProvider.capability).orElseGet(Mana::new);
+        this.playerMana = mana.getMana();
+        this.maxMana = mana.getMaxMana(1);
+
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.disableAlphaTest();
+
+        mc.getTextureManager().bind(MANASTAR);
+        int offsetX = 10;
+        for (int i = 0; i < 10; i++) {
+            blit(ms, this.w/2 + offsetX, this.h-48, 0, 0, 8, 8, 64, 64);
+            if (this.playerMana >= (this.maxMana/40)*1 + (this.maxMana / 10)*i) {
+                blit(ms, this.w/2 + offsetX, this.h-48, 8, 0, 8, 8, 64, 64);
             }
-            offsetX = 10;
-
-            IMana mana = player.getCapability(ManaProvider.capability).orElseGet(Mana::new);
-            float currentMana = mana.getMana();
-            float currentMaxMana = mana.getMaxMana(1);
-
-            for (int i = 0; i < (int) (10); i++) {
-                if (currentMana >= (currentMaxMana / 40) * 1 + (currentMaxMana / 10) * i) {
-                    Minecraft.getInstance().getTextureManager().bind(FIRST);
-                    Minecraft.getInstance().gui.blit(event.getMatrixStack(), w / 2 + offsetX, h - 48, 0, 0, 8, 8, 8, 8);
-                }
-                if (currentMana >= (currentMaxMana / 40) * 2 + (currentMaxMana / 10) * i) {
-                    Minecraft.getInstance().getTextureManager().bind(SECOND);
-                    Minecraft.getInstance().gui.blit(event.getMatrixStack(), w / 2 + offsetX, h - 48, 0, 0, 8, 8, 8, 8);
-                }
-                if (currentMana >= (currentMaxMana / 40) * 3 + (currentMaxMana / 10) * i) {
-                    Minecraft.getInstance().getTextureManager().bind(THIRD);
-                    Minecraft.getInstance().gui.blit(event.getMatrixStack(), w / 2 + offsetX, h - 48, 0, 0, 8, 8, 8, 8);
-                }
-                if (currentMana >= (currentMaxMana / 40) * 4 + (currentMaxMana / 10) * i) {
-                    Minecraft.getInstance().getTextureManager().bind(FOURTH);
-                    Minecraft.getInstance().gui.blit(event.getMatrixStack(), w / 2 + offsetX, h - 48, 0, 0, 8, 8, 8, 8);
-                }
-
-                offsetX = offsetX + 8;
+            if (this.playerMana >= (this.maxMana/40)*2 + (this.maxMana / 10)*i) {
+                blit(ms, this.w/2 + offsetX, this.h-48, 16, 0, 8, 8, 64, 64);
             }
+            if (this.playerMana >= (this.maxMana/40)*3 + (this.maxMana / 10)*i) {
+                blit(ms, this.w/2 + offsetX, this.h-48, 24, 0, 8, 8, 64, 64);
+            }
+            if (this.playerMana >= (this.maxMana/40)*4 + (this.maxMana / 10)*i) {
+                blit(ms, this.w/2 + offsetX, this.h-48, 32, 0, 8, 8, 64, 64);
+            }
+            offsetX = offsetX + 8;
         }
+
+        String text = new DecimalFormat("##.#").format(this.playerMana) + "/" + new DecimalFormat("##.#").format(this.maxMana);
+        drawCenteredString(ms, mc.font, text, this.w/2 + 50, this.h-48, 10526880);
+
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

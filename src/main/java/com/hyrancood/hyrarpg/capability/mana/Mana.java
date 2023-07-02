@@ -4,6 +4,8 @@ public class Mana implements IMana {
     private float mana;
     private float[] MaxMana;
     private float[] ManaRegenSpeed;
+    //0 - base
+    //1 - current
 
     public Mana(){
         this.mana = 0;
@@ -15,7 +17,7 @@ public class Mana implements IMana {
     public float getMana() { return this.mana; }
 
     @Override
-    public float getMaxMana(int id) {return this.MaxMana[id]; }
+    public float getMaxMana(int id) { return this.MaxMana[id]; }
 
     @Override
     public float[] getMaxManaArray() { return this.MaxMana; }
@@ -45,6 +47,9 @@ public class Mana implements IMana {
     public void addMana(float amount) {
         this.mana += amount;
     }
+
+    @Override
+    public void reduceMana(float amount){ this.mana -= amount; }
 
     @Override
     public void addMaxMana(int id, float amount) {
